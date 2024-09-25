@@ -1,0 +1,61 @@
+1 what is heights accuracy achieved with Proposed method using RF 
+answer : 97.3 
+###########################
+2 give me comparision of Accuracy,  Precision, Recall, F-measure  for each model 
+answer :
+Table V.
+Results of the
+classifier without
+PCA
+Algorithms Accuracy Precision Recall F-measure
+All features
+NB 0.7267 0.737 0.651 0.69
+k-NN 0.942 0.925 0.939 0.93
+SVM 0.931 0.917 0.946 0.93
+RF 0.969 0.969 0.955 0.96
+Bagging 0.951 0.938 0.948 0.94
+NN 0.958 0.967 0.958 0.96
+Table VI.
+Results of classifier
+of original features
+with N1 and N2 with
+PCA
+Removed features Algorithms Accuracy Precision Recall F-measure
+11, 24, 20, 22 NB 0.746 0.988 0.638 0.775
+k-NN 0.953 0.939 0.954 0.946
+SVM 0.947 0.925 0.954 0.939
+RF 0.973 0.961 0.976 0.968
+Bagging 0.969 0.959 0.971 0.965
+NN 0.972 0.963 0.975 0.969
+Stacking1
+(NNþRFþbagging)
+0.974 0.960 0.981 0.970
+Stacking2
+(knnþRFþbagging)
+0.972 0.955 0.981 0.968
+#########################
+3 what are Highest and lowest correlating features with results? 
+answer : 
+Highest correlating
+features with results
+Features Correlation
+SSL_final_state 0.71
+URL_of_Anchor 0.69
+Web_traffic 0.35
+Prefix_suffix 0.35
+Table III.
+Least correlating
+features
+Features Correlation
+Favicon 0.0002
+Pop_Up_Window 3.6  105
+On_Mouse_Over 0.04
+Iframe 0.003
+Submitting_to_Email 0.01
+##################################
+4- 
+ما هي دقة Proposed method using stacking في تصنيف الرسائل   
+answer :
+97.4 
+#################################### 
+
