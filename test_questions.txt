@@ -1,0 +1,46 @@
+Q: what are properties of Iron Carbide Phase?
+A: 
+Fe3C is the chemical composition, and it has
+orthorhombic crystal structure.
+•
+Iron carbide breaks down to iron and graphite with
+sufficient time and temperature.
+•
+For practical purposes it is considered stable below
+450 C.
+•
+Density: 7.66 grams/cm 3 at 20
+C
+•
+Very hard and brittle phase
+•
+Commonly called “cementite”
+•
+M.p.
+1227 C
+
+###################################
+
+Q: describe Black-heart process for Malleable iron production . 
+A: 
+In this process the white iron castings are heated in airtight boxes out of contact with air at 850-950°C for 50-170 hours, depending upon the mass and thickness of the castings.
+•
+The effect of this prolonged heating is to break down the iron carbide (cementite) of the white cast iron into small rosettes of graphite (temper graphite).
+•
+The name 'black-heart' comes from the darkened appearance of the iron, when fractured, resulting from the formation of free graphite. It is used in the wheel hubs, brake drums, conduit fitting, control levers, and pedals.
+########################################
+Q:
+
+A:
+Ferrosilicon and inoculants like calcium silicides, zirconium alloys,
+and strontium alloys accelerate graphite formation by facilitating heterogeneous nucleation of graphite. 
+They enable this process through epitaxy or crystallographic similarity, 
+increasing the nucleation rate, refining graphite particles, and leading to a higher number of eutectic cells.
+##########################################
+Q: How do elements like magnesium or boron affect graphite morphology in cast iron?
+
+A: Elements such as magnesium or boron promote a spheroidal graphite morphology instead of the typical laminar form, 
+resulting in rounded or nodular graphite structures.
+
+############################################
+

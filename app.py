@@ -1,8 +1,6 @@
 import streamlit as st
 import os
 import time
-
-# Import required libraries from Langchain and Hugging Face
 from langchain_groq import ChatGroq
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -12,6 +10,9 @@ from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from dotenv import load_dotenv
+from langchain.memory import ConversationBufferMemory 
+
+# memory = ConversationBufferMemory(input_key="input", output_key="answer", memory_key="history")  # Initialize memory
 
 # Load environment variables (API keys, tokens, etc.)
 load_dotenv()
@@ -30,7 +31,7 @@ st.title("Chatgroq With Llama3.1")
 lama_image = 'app_data\\lama.jpeg'
 st.sidebar.image(lama_image)
 st.sidebar.header('RAG Project using Llama3.1 and groq API')
-st.sidebar.markdown('Make sure your PDFs are placed in the "data" folder in the same directory as this app.')
+st.sidebar.markdown('Make sure your PDFs are placed in the "data" folder in the same directory of this app.')
 
 # Initialize the language model (LLM) using the Groq API with Llama3.1
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.1-70b-versatile")
@@ -38,8 +39,7 @@ llm = ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.1-70b-versatile")
 # Define the prompt template for question answering
 prompt = ChatPromptTemplate.from_template(
 """
-Answer the questions based on the provided context. If you are asked a question in a language, answer in the same language. Do not be strict in translation.
-<context>
+Answer the questions based on the provided context.If the provided context does not include the answer, provide an answer based on your knowledge.
 {context}
 <context>
 Questions: {input}
@@ -55,18 +55,31 @@ def vector_embedding():
         # Initialize Hugging Face embeddings (pre-trained model)
         st.session_state.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-        # Load all PDFs from the "./data" folder
-        st.session_state.loader = PyPDFDirectoryLoader("./data")  # Data ingestion
-        st.session_state.docs = st.session_state.loader.load()  # Document loading
+        # Check if the FAISS index file exists
+        vector_store_path = "./faiss_vector_store"
+        
+        if os.path.exists(vector_store_path):
+            # Load FAISS from disk
+            st.session_state.vectors = FAISS.load_local(vector_store_path, st.session_state.embeddings,allow_dangerous_deserialization=True)
+            st.write("Loaded vector store from disk.")
+        
+        else:
+            # Load all PDFs from the "./data" folder
+            st.session_state.loader = PyPDFDirectoryLoader("./data")
+            st.session_state.docs = st.session_state.loader.load()
 
-        # Split the loaded documents into chunks for easier processing
-        st.session_state.text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)  # Chunk creation
-        st.session_state.final_documents = st.session_state.text_splitter.split_documents(st.session_state.docs)  # Split documents
+            # Split the loaded documents into chunks
+            st.session_state.text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+            st.session_state.final_documents = st.session_state.text_splitter.split_documents(st.session_state.docs)
 
-        # Create vector embeddings for the split documents
-        st.session_state.vectors = FAISS.from_documents(st.session_state.final_documents, st.session_state.embeddings)  # Vector store
+            # Create vector embeddings for the split documents
+            st.session_state.vectors = FAISS.from_documents(st.session_state.final_documents, st.session_state.embeddings)
 
-        # Calculate and display the total processing time
+            # Save FAISS index to disk
+            st.session_state.vectors.save_local(vector_store_path)
+            st.write("Vector store saved to disk.")
+
+        # Display the total processing time
         end = time.time()
         total_time = end - start
         st.write(f'Total time to process documents: {round(total_time/60, 2)} minutes.')
