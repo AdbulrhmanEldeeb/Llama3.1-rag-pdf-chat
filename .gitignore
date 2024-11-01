@@ -2,3 +2,5 @@ documntation.pdf
 *.wmv 
 *.mp4 
 .env
+env
+__pycache__
