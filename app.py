@@ -11,6 +11,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from dotenv import load_dotenv
 
+
 # from langchain.memory import ConversationBufferMemory
 
 # memory = ConversationBufferMemory(input_key="input", output_key="answer", memory_key="history")  # Initialize memory
